@@ -10,6 +10,7 @@ import UIKit
 import EvrythngiOS
 import Moya
 import AVFoundation
+import KRProgressHUD
 
 class ViewController: UIViewController {
     
@@ -99,9 +100,15 @@ extension ViewController {
 
 // MARK: EvrythngDelegate
 
-extension ViewController: EvrythngScannerResultDelegate {
-    //public func didFinishScanResult(result: String, error: Swift.Error?) {
-    public func evrythngScannerDidFinishScan(scanIdentificationsResponse: EvrythngScanIdentificationsResponse?, value: String, error: Swift.Error?) {
+extension ViewController: EvrythngIdentifierResultDelegate {
+    
+    public func evrythngScannerWillStartIdentify() {
+        KRProgressHUD.show()
+    }
+    
+    public func evrythngScannerDidFinishIdentify(scanIdentificationsResponse: EvrythngScanIdentificationsResponse?, value: String, error: Swift.Error?) {
+        
+        KRProgressHUD.dismiss()
         
         if let err = error {
             
